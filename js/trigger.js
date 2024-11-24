@@ -1,19 +1,16 @@
 class Trigger {
-    constructor(x, y, w, h, func, visible = true) {
+    constructor(x, y, w, h, func) {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
         this.func = func;
-        this.visible = visible;
     }
 
-    display() {
-        if (this.visible) {
-            noFill();
-            stroke(255, 0, 0);
-            rect(this.x, this.y, this.w, this.h);
-        }
+    show() {
+        noFill();
+        stroke(255, 0, 0);
+        rect(this.x, this.y, this.w, this.h);
     }
 
     checkClick(mx, my) {
