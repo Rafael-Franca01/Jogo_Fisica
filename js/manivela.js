@@ -8,6 +8,7 @@ class Manivela {
         this.time = 0;
         this.clicks = 0;
         this.tempo = 50;
+        this.checks = 5;
         this.room = room;
         this.frames.push(this.img);
         for (let i = 1; i <= 7; i++) {
@@ -86,12 +87,24 @@ class Manivela {
     checkCPS() {
         let time = millis();
         if (time - this.time >= 1000) {
-            if (this.clicks >= 10 && this.clicks <= 15) {
-                this.room.light = true;
+            if (this.clicks == 5 || this.clicks == 6) {
+                this.checks--;
+                if (this.checks == 0) {
+                    this.room.light = true;
+                }
+            } else if (this.clicks > 6) {
+                this.estourar()
+                this.clicks = 0;
+            } else {
+                this.checks = 5;
             }
-            this.clicks = 0;
+            this.clicks = (this.clicks == 0) ? 0 : this.clicks - 1;
             this.time = millis()
         }
+    }
+
+    estourar() {
+        alert("Explodiu!")
     }
 
 }

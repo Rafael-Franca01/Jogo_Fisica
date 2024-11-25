@@ -1,10 +1,12 @@
 class Trigger {
-    constructor(x, y, w, h, func) {
+    constructor(x, y, w, h, func, otherFunc= ()=>{}) { // LINDO!
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+        this.disable = false;
         this.func = func;
+        this.otherFunc = otherFunc;
     }
 
     show() {
@@ -14,8 +16,13 @@ class Trigger {
     }
 
     checkClick(mx, my) {
+        if (this.disable) {
+            return;
+        }
         if (mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h) {
             this.func();
+        } else {
+            this.otherFunc();
         }
     }
 }

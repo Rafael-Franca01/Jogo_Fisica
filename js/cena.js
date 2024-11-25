@@ -19,8 +19,8 @@ class Cena {
         }
     }
 
-    addTrigger(x, y, w, h, func) {
-        this.triggers.push(new Trigger(x, y, w, h, func));
+    addTrigger(x, y, w, h, func, otherFunc= ()=> {}) {
+        this.triggers.push(new Trigger(x, y, w, h, func, otherFunc));
     }
 
     show(light) {
