@@ -1,9 +1,11 @@
 class Aquario {
     constructor(room) {
         this.img = loadImage("espelho/espelho_0_0.png");
+        this.final = loadImage("espelho/espelho_final.png");
         this.triggers = [
-            new Trigger(0, H - 200, W, H, () => {
-                room.facing = "table";
+            new Trigger(0, H - 150, W, H, () => {
+                room.interacting = false
+                room.facing = "left";
             })
         ]
         this.index = [0, 0, 0, 0, 0];
@@ -32,7 +34,7 @@ class Aquario {
         for (let t of this.triggers) {
             t.show()
         }
-        stroke(72,24,107); // purple
+        stroke(72, 24, 107); // purple
         strokeWeight(5);
         this.emitRay();
     }
@@ -41,7 +43,7 @@ class Aquario {
         for (let t of this.triggers) {
             t.checkClick(mouseX, mouseY)
         }
-        
+
     }
 
     emitRay() {
@@ -109,6 +111,6 @@ class Aquario {
                 line(430, 580, 439, 650);
                 return;
         }
-        
+        this.img = this.final;
     }
 }

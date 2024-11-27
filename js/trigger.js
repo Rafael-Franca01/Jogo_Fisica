@@ -1,5 +1,5 @@
 class Trigger {
-    constructor(x, y, w, h, func, otherFunc= ()=>{}) { // LINDO!
+    constructor(x, y, w, h, func, otherFunc = () => { }) { // LINDO!
         this.x = x;
         this.y = y;
         this.w = w;

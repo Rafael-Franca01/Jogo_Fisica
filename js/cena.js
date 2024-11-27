@@ -12,14 +12,14 @@ class Cena {
                 room.facing = faceTo[1];
             });
         } else {
-            this.addTrigger(0, H - 200, W, H, () => {
+            this.addTrigger(0, H - 150, W, H, () => {
                 room.interacting = false;
                 room.facing = faceTo;
             });
         }
     }
 
-    addTrigger(x, y, w, h, func, otherFunc= ()=> {}) {
+    addTrigger(x, y, w, h, func, otherFunc = () => { }) {
         this.triggers.push(new Trigger(x, y, w, h, func, otherFunc));
     }
 

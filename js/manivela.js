@@ -22,7 +22,7 @@ class Manivela {
                 this.turning = true;
                 this.clicks++;
             }),
-            new Trigger(0, H - 200, W, H, () => {
+            new Trigger(0, H - 150, W, H, () => {
                 room.facing = "table";
             })]
     }
