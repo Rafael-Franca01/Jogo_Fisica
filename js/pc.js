@@ -1,7 +1,7 @@
 class Computador {
     constructor(room) {
         this.img = loadImage("zoom/computador.png");
-        this.game = new Game(400, 130, 875, 415);
+        this.game = new Game(400, 130, 875, 415, room);
         this.room = room;
         this.trigger = new Trigger(0, H - 150, W, H, () => {
             room.interacting = false;
@@ -9,8 +9,8 @@ class Computador {
         });
     }
 
-    show(light) {
-        if (light) {
+    show(energy) {
+        if (energy) {
             this.game.show();
         }
         image(this.img, 0, 0);
@@ -50,11 +50,11 @@ class Ball {
         this.yVel = 0;
         this.xVel = 0;
         this.acceleration = 0.1;
-        this.GRAVITY = 0.2;
+        this.GRAVITY = 0.1;
     }
 
     show() {
-        fill(255);
+        fill(200, 0, 0);
         noStroke();
         circle(this.x, this.y, this.size);
     }
@@ -63,33 +63,17 @@ class Ball {
         this.yVel += this.GRAVITY;
         this.y += this.yVel;
         this.x += this.xVel;
-
-        // if (this.y >= 400 - this.size / 2) {
-        //     this.y = 400 - this.size / 2;
-        //     this.yVel *= -0.5;
-        // } else if (this.y <= this.size / 2) {
-        //     this.y = this.size / 2;
-        //     this.yVel *= -0.5;
-        // }
-
-        // if (this.x >= 400 - this.size / 2) {
-        //     this.x = 400 - this.size / 2;
-        //     this.xVel *= -0.9;
-        // } else if (this.x <= this.size / 2) {
-        //     this.x = this.size / 2;
-        //     this.xVel *= -0.9;
-        // }
-
     }
 
     moveTowards(x, y, force) {
+        this.y -= 1;; // hack
         let dx = x - this.x;
         let dy = y - this.y;
         let distance = dist(this.x, this.y, x, y);
 
         if (distance > 0) {
             this.xVel = (dx / distance) * force;
-            this.yVel = (dy / distance) * force;
+            this.yVel = (dy / distance) * (force / 2);
         }
     }
 
@@ -104,33 +88,38 @@ class Ball {
                 return true;
             }
         }
-        return this.y >= 400 - this.size / 2;
+        return this.y >= this.h - this.size / 2;
     }
 
 }
 
 class Game {
-    constructor(x, y, w, h) {
+    constructor(x, y, w, h, room) {
+        this.room = room
         this.x = x;
         this.y = y;
         this.w = x + w;
         this.h = y + h;
-        this.ball = new Ball(x + 200, y + 100, 20);
+        this.ball = new Ball(x + 85, y + 390, 20);
         this.pressStartTime = 0;
         this.isPressed = false;
         this.calculatedForce = 0;
         this.walls = [
             // ground
-            new Wall(x, y + h, w, 20),
+            new Wall(x, y + h - 15, w, 30),
             // top
-            new Wall(x, y, w, 20),
+            new Wall(x, y, w, 30),
             // walls
-            new Wall(x, y, 20, h),
-            new Wall(x + w, y, 20, h),
+            new Wall(x - 40, y, 90, h),
+            new Wall(x + w - 60, y, 90, h),
             // obstacles
-            new Wall(x + 100, y + 200, 200, 20),
-            new Wall(x + 100, y + 250, 20, 150),
-            new Wall(x + 280, y + 250, 20, 150),
+            new Wall(x + 170, y + 340, 200, 80),
+            new Wall(x + 250, y + 250, 130, 100),
+            new Wall(x + 330, y + 180, 50, 240),
+            new Wall(x + 330, y + 365, 500, 35),
+            new Wall(x + 550, y + 230, 300, 150),
+            new Wall(x + 418, y + 280, 60, 20),
+            new Wall(x + 418, y, 10, 210)
         ];
     }
 
@@ -151,13 +140,13 @@ class Game {
             if (abs(normalX) > abs(normalY)) {
                 ball.xVel *= -0.8; // Horizontal collision
             } else {
-                ball.yVel *= -0.8; // Vertical collision
+                ball.yVel *= -0.4; // Vertical collision
             }
         }
     }
 
     crossCursor(showDots) {
-        if (mouseX < this.x || mouseX > this.w || mouseY < this.y || mouseY > this.h) {
+        if (this.room.won || mouseX < this.x || mouseX > this.w || mouseY < this.y || mouseY > this.h) {
             cursor();
             return;
         }
@@ -183,15 +172,21 @@ class Game {
     }
 
     show() {
+        if (this.ball.x >= 1140 && this.ball.y >= 340) {
+            this.room.won = true;
+        }
         background(220);
         this.crossCursor(this.ball.isOnGround(this.walls));
         this.ball.show();
+        fill(0, 200, 0, 100);
+        noStroke();
+        rect(1120, 300, 80, 80);
         for (let wall of this.walls) {
             wall.show();
             this.intersects(this.ball, wall)
         }
         this.ball.update();
-        this.ball.xVel = (this.ball.isOnGround(this.walls)) ? this.ball.xVel * 0.99 : this.ball.xVel;
+        this.ball.xVel = (this.ball.isOnGround(this.walls)) ? this.ball.xVel * 0.5 : this.ball.xVel;
 
         if (!this.isPressed && this.calculatedForce > 0 && this.ball.isOnGround(this.walls)) {
             this.ball.moveTowards(mouseX, mouseY, this.calculatedForce);
@@ -203,14 +198,14 @@ class Game {
         barHeight = constrain(barHeight, 0, 200);
 
         fill(200, 0, 0);
-        rect(this.x + 10, this.h - 30 - barHeight, 20, barHeight);
+        rect(this.x + 20, this.h - 30 - barHeight, 20, barHeight);
         stroke(0);
         noFill();
-        rect(this.x + 10, this.h - 230, 20, 200);
+        rect(this.x + 20, this.h - 230, 20, 200);
     }
 
     press() {
-        if (this.ball.isOnGround(this.walls)) {
+        if (this.ball.isOnGround(this.walls) && !this.room.won) {
             this.isPressed = true;
             this.pressStartTime = millis();
         }

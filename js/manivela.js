@@ -77,7 +77,7 @@ class Manivela {
         textAlign(CENTER, CENTER)
         text("Girar", 350, 350)
         textSize(32)
-        text(`${this.clicks * 350} Watts`, 350, 400)
+        text(`${this.clicks * 35} Watts`, 350, 400)
 
         for (let trigger of this.triggers) {
             trigger.show();

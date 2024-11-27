@@ -2,6 +2,7 @@ class Aquario {
     constructor(room) {
         this.img = loadImage("espelho/espelho_0_0.png");
         this.final = loadImage("espelho/espelho_final.png");
+        this.room = room;
         this.triggers = [
             new Trigger(0, H - 150, W, H, () => {
                 room.interacting = false
@@ -30,9 +31,6 @@ class Aquario {
         image(this.img, 0, 0)
         for (let i = 0; i < this.xys.length; i++) {
             image(this.espelhos[`${i}`][this.index[i]], ...this.xys[i], ...this.xys[i])
-        }
-        for (let t of this.triggers) {
-            t.show()
         }
         stroke(72, 24, 107); // purple
         strokeWeight(5);
@@ -112,5 +110,6 @@ class Aquario {
                 return;
         }
         this.img = this.final;
+        this.room.energy = true;
     }
 }

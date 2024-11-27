@@ -1,20 +1,24 @@
 class Quarto {
     constructor() {
         this.light = false;
+        this.energy = false;
+        this.resistors = false;
+        this.won = false;
         this.interacting = false;
         this.showPaper = false;
         this.facing = "front";
         this.walls = {
-            front: new Cena("quarto/porta_LIGHT.png", this, ["left", "right"], false, true),
-            back: new Cena("quarto/cama_LIGHT.png", this, ["right", "left"], false, true),
-            left: new Cena("quarto/aquario_LIGHT.png", this, ["back", "front"], false, true),
-            right: new Cena("quarto/computador_LIGHT.png", this, ["front", "back"], false, true),
+            front: new Cena("quarto/porta_LIGHT.png", this, ["left", "right"], false),
+            back: new Cena("quarto/cama_LIGHT.png", this, ["right", "left"], false),
+            left: new Cena("quarto/aquario_LIGHT.png", this, ["back", "front"], false),
+            right: new Cena("quarto/computador_LIGHT.png", this, ["front", "back"], false),
         }
         this.interactions = {
-            table: new Cena("zoom/mesa_LIGHT.png", this, "back", true, true),
+            table: new Cena("zoom/mesa_LIGHT.png", this, "back", true),
             manivela: new Manivela(this),
             aquario: new Aquario(this),
             computador: new Computador(this),
+            resistor: new Resistor(this)
         }
 
         this.walls.back.addTrigger(816, 393, 305, 193, () => {
@@ -33,6 +37,14 @@ class Quarto {
             this.interacting = true;
             this.facing = "computador";
         });
+
+        this.walls.right.addTrigger(1102, 342, 68, 51, () => {
+            if (this.light) {
+                this.interacting = true;
+                this.facing = "resistor";
+            }
+        });
+
         this.interactions.table.addTrigger(839, 440, 130, 64, () => {
             this.interactions.table.triggers[0].disable = true; // HORRÍVEL
             this.showPaper = true
@@ -50,7 +62,11 @@ class Quarto {
         if (!this.interacting) {
             this.walls[this.facing].show(this.light);
         } else {
-            this.interactions[this.facing].show(this.light)
+            if (this.facing == "computador") {
+                this.interactions[this.facing].show(this.resistors)
+            } else {
+                this.interactions[this.facing].show(this.light)
+            }
         }
 
         if (this.showPaper) {
@@ -94,11 +110,11 @@ class Quarto {
             
             Solução:
             Ajuste do regulador de tensão e estabilização da potência
-            gerada dentro da faixa ideal (1400-1750 watts).
+            gerada dentro da faixa ideal (140000-175000 Miliwatts).
             
             Recomendação:
             Monitorar a potência constantemente. Caso ultrapasse 
-            1750 watts ou caia abaixo de 1400 watts, o sistema não
+            175000 Miliatts ou caia abaixo de 140000 Miliwatts, o sistema não
             suportará a pressão.
             
             Status:

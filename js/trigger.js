@@ -9,11 +9,11 @@ class Trigger {
         this.otherFunc = otherFunc;
     }
 
-    show() {
-        noFill();
-        stroke(255, 0, 0);
-        rect(this.x, this.y, this.w, this.h);
-    }
+    // show() {
+    //     noFill();
+    //     stroke(255, 0, 0);
+    //     rect(this.x, this.y, this.w, this.h);
+    // }
 
     checkClick(mx, my) {
         if (this.disable) {

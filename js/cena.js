@@ -1,5 +1,5 @@
 class Cena {
-    constructor(img, room, faceTo, back = false, debug = false) {
+    constructor(img, room, faceTo, back = falses) {
         this.img_dark = loadImage(img.replace("LIGHT", "SEMLUZ"));
         this.img_light = loadImage(img.replace("LIGHT", "LUZ"));
         this.triggers = [];
@@ -28,11 +28,6 @@ class Cena {
             image(this.img_light, 0, 0);
         } else {
             image(this.img_dark, 0, 0);
-        }
-        if (this.debug) {
-            for (let trigger of this.triggers) {
-                trigger.show();
-            }
         }
     }
 
