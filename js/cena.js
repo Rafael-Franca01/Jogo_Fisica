@@ -1,9 +1,8 @@
 class Cena {
-    constructor(img, room, faceTo, back = falses) {
+    constructor(img, room, faceTo, back = false) {
         this.img_dark = loadImage(img.replace("LIGHT", "SEMLUZ"));
         this.img_light = loadImage(img.replace("LIGHT", "LUZ"));
         this.triggers = [];
-        this.debug = debug;
         if (!back) {
             this.addTrigger(W - 100, 0, 100, H, () => {
                 room.facing = faceTo[0];
