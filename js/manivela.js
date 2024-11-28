@@ -79,9 +79,6 @@ class Manivela {
         textSize(32)
         text(`${this.clicks * 35} Watts`, 350, 400)
 
-        for (let trigger of this.triggers) {
-            trigger.show();
-        }
     }
 
     checkCPS() {
