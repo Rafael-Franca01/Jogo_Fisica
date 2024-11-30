@@ -102,7 +102,6 @@ class Resistor {
         let ohms = [50, 50, 100, 125, 25];
         let correct = true;
         for (let i = 0; i < 3; i++) {
-            console.log(sequence[i], ohms[this.placed[1][i]])
             if (sequence[i] != ohms[this.placed[1][i]]) {
                 correct = false;
             }

@@ -19,7 +19,6 @@ function draw() {
 }
 
 function mousePressed() {
-    console.log(mouseX, mouseY)
     quarto.update()
 }
 

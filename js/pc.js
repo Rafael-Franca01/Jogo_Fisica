@@ -42,10 +42,26 @@ class Wall {
     }
 }
 
+class MagnecticWall extends Wall {
+    constructor(x, y, w, h) {
+        super(x, y, w, h);
+    }
+
+    show() {
+        fill(200, 0, 0);
+        noStroke();
+        rect(this.x, this.y, this.w, this.h / 2);
+        fill(0, 0, 200);
+        noStroke();
+        rect(this.x, this.y + this.h / 2, this.w, this.h / 2);
+    }
+}
+
 class Ball {
-    constructor(x, y, size) {
-        this.x = x;
-        this.y = y;
+    constructor(x, y, size, xOffset, yOffset) {
+        this.x = x + xOffset;
+        this.y = y + yOffset;
+        this.offset = { x: xOffset, y: yOffset };
         this.size = size;
         this.yVel = 0;
         this.xVel = 0;
@@ -61,6 +77,10 @@ class Ball {
 
     update() {
         this.yVel += this.GRAVITY;
+        // on magnectic zone
+        if (this.x >= this.offset.x + 418 && this.x <= this.offset.x + 478) {
+            this.yVel -= this.GRAVITY * 4;
+        }
         this.y += this.yVel;
         this.x += this.xVel;
     }
@@ -100,7 +120,7 @@ class Game {
         this.y = y;
         this.w = x + w;
         this.h = y + h;
-        this.ball = new Ball(x + 85, y + 390, 20);
+        this.ball = new Ball(85, 390, 20, x, y);
         this.pressStartTime = 0;
         this.isPressed = false;
         this.calculatedForce = 0;
@@ -118,7 +138,7 @@ class Game {
             new Wall(x + 330, y + 180, 50, 240),
             new Wall(x + 330, y + 365, 500, 35),
             new Wall(x + 550, y + 230, 300, 150),
-            new Wall(x + 418, y + 280, 60, 20),
+            new MagnecticWall(x + 418, y + 280, 60, 20),
             new Wall(x + 418, y, 10, 210)
         ];
     }

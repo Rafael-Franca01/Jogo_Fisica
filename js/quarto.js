@@ -1,12 +1,13 @@
 class Quarto {
     constructor() {
-        this.light = false;
-        this.energy = false;
-        this.resistors = false;
+        this.light = true;
+        this.energy = true;
+        this.resistors = true;
         this.won = false;
         this.interacting = false;
         this.showPaper = false;
-        this.facing = "front";
+        this.facing = "right";
+        this.porta = loadImage("quarto/porta_aberta_LUZ.png");
         this.walls = {
             front: new Cena("quarto/porta_LIGHT.png", this, ["left", "right"], false),
             back: new Cena("quarto/cama_LIGHT.png", this, ["right", "left"], false),
@@ -71,6 +72,10 @@ class Quarto {
 
         if (this.showPaper) {
             this.paper();
+        }
+
+        if (this.light && this.energy && this.resistors && this.won) {
+            this.walls.front.img_light = this.porta;
         }
     }
 
