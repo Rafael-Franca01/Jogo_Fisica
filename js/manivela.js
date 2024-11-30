@@ -29,12 +29,12 @@ class Manivela {
 
     show(light) {
         if (light && !this.turning) {
-            image(this.img_final, 0, 0);
+            image(this.img_final, 0, 0, W, H);
             this.btn(false);
             return;
         }
         if (this.turning) {
-            image(this.frames[this.i], 0, 0);
+            image(this.frames[this.i], 0, 0, W, H);
             this.tempo--;
             if (this.tempo == 0) {
                 this.tempo = 3;
@@ -42,7 +42,7 @@ class Manivela {
                 this.i = (this.turning) ? this.i : 0;
             }
         } else {
-            image(this.img, 0, 0);
+            image(this.img, 0, 0, W, H);
         }
         this.btn(true);
         this.checkCPS();
@@ -62,22 +62,22 @@ class Manivela {
         } else {
             fill(100, 0, 0)
         }
-        circle(350, 350, 350)
+        circle(350 * off.w, 350 * off.h, 350 * (off.w / off.h))
         fill(0, 255, 0)
-        arc(350, 350, 350, 350, 0, PI / 5 * this.clicks)
+        arc(350 * off.w, 350 * off.h, 350 * (off.w / off.h), 350 * (off.w / off.h), 0, PI / 5 * this.clicks)
         if (on) {
             fill(255)
         } else {
             fill(100)
         }
-        circle(350, 350, 340)
+        circle(350 * off.w, 350 * off.h, 340)
         fill(0)
-        textSize(64)
+        textSize(64 * (off.w / off.h))
         textFont("Comic Sans")
         textAlign(CENTER, CENTER)
-        text("Girar", 350, 350)
+        text("Girar", 350 * off.w, 350 * off.h)
         textSize(32)
-        text(`${this.clicks * 35} Watts`, 350, 400)
+        text(`${this.clicks * 35} Watts`, 350 * off.w, 400 * off.h)
 
     }
 

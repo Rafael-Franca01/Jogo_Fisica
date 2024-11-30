@@ -18,7 +18,7 @@ class Menu {
         }
         this.current = "play";
         this.triggers = [
-            new Trigger(678, 331, 318, 134, () => {
+            new Trigger(678 * off.w, 331 * off.h, 318 * off.w, 134 * off.h, () => {
                 switch (this.current) {
                     case "play":
                         intro.play();
@@ -63,7 +63,7 @@ class Menu {
                         break;
                 }
             }),
-            new Trigger(1168, 366, 60, 60, () => {
+            new Trigger(1168 * off.w, 366 * off.h, 60 * off.w, 60 * off.h, () => {
                 this.transitioning = true;
                 switch (this.current) {
                     case "play":
@@ -80,7 +80,7 @@ class Menu {
                 this.reverse = false;
                 this.transition();
             }),
-            new Trigger(408, 368, 60, 60, () => {
+            new Trigger(408 * off.w, 368 * off.h, 60 * off.w, 60 * off.h, () => {
                 this.transitioning = true;
                 switch (this.current) {
                     case "play":

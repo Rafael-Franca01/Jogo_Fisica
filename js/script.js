@@ -1,9 +1,12 @@
-const W = 1653, H = 796;
+let W, H;
+let off;
 let quarto;
 let menu;
 let intro;
 
 function preload() {
+    W = windowWidth, H = windowHeight;
+    off = { w: windowWidth / 1653, h: windowHeight / 796 }
     quarto = new Quarto()
     intro = new Cutscene("cutscenes/intro.mp4", () => {
         intro.active = false

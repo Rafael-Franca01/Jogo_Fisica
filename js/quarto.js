@@ -22,37 +22,37 @@ class Quarto {
             resistor: new Resistor(this)
         }
 
-        this.walls.front.addTrigger(628, 337, 339, 235, () => {
+        this.walls.front.addTrigger(628 * off.w, 337 * off.h, 339 * off.w, 235 * off.h, () => {
             if (this.light && this.energy && this.resistors && this.won) {
                 alert("Você venceu!");
             }
         });
 
-        this.walls.back.addTrigger(816, 393, 305, 193, () => {
+        this.walls.back.addTrigger(816 * off.w, 393 * off.h, 305 * off.w, 193 * off.h, () => {
             this.interacting = true;
             this.facing = "table";
         });
 
-        this.walls.left.addTrigger(563, 101, 515, 296, () => {
+        this.walls.left.addTrigger(563 * off.w, 101 * off.h, 515 * off.w, 296 * off.h, () => {
             if (this.light) {
                 this.interacting = true;
                 this.facing = "aquario";
             }
         })
 
-        this.walls.right.addTrigger(737, 412, 174, 189, () => {
+        this.walls.right.addTrigger(737 * off.w, 412 * off.h, 174 * off.w, 189 * off.h, () => {
             this.interacting = true;
             this.facing = "computador";
         });
 
-        this.walls.right.addTrigger(1102, 342, 68, 51, () => {
+        this.walls.right.addTrigger(1102 * off.w, 342 * off.h, 68 * off.w, 51 * off.h, () => {
             if (this.light) {
                 this.interacting = true;
                 this.facing = "resistor";
             }
         });
 
-        this.interactions.table.addTrigger(839, 440, 130, 64, () => {
+        this.interactions.table.addTrigger(839 * off.w, 440 * off.h, 130 * off.w, 64 * off.h, () => {
             this.interactions.table.triggers[0].disable = true; // HORRÍVEL
             this.showPaper = true
         }, () => {
@@ -60,7 +60,7 @@ class Quarto {
             this.showPaper = false
         })
 
-        this.interactions.table.addTrigger(836, 271, 175, 100, () => {
+        this.interactions.table.addTrigger(836 * off.w, 271 * off.h, 175 * off.w, 100 * off.h, () => {
             this.facing = "manivela";
         });
     }
@@ -94,8 +94,8 @@ class Quarto {
     }
 
     paper() {
-        let paperW = 520;
-        let paperH = 600
+        let paperW = 520 * off.w;
+        let paperH = 600 * off.h;
         noStroke();
         fill(255);
         rect(W / 2 - paperW / 2, H / 2 - paperH / 2, paperW, paperH);
@@ -129,6 +129,6 @@ class Quarto {
             suportará a pressão.
             
             Status:
-            Necessita de reparos.`, W / 2 - 300, H / 2 - 270)
+            Necessita de reparos.`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
     }
 }

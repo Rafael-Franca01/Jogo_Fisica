@@ -1,7 +1,7 @@
 class Computador {
     constructor(room) {
         this.img = loadImage("zoom/computador.png");
-        this.game = new Game(400, 130, 875, 415, room);
+        this.game = new Game(400 * off.w, 130 * off.h, 875 * off.w, 415 * off.h, room);
         this.room = room;
         this.trigger = new Trigger(0, H - 150, W, H, () => {
             room.interacting = false;
@@ -13,7 +13,7 @@ class Computador {
         if (energy) {
             this.game.show();
         }
-        image(this.img, 0, 0);
+        image(this.img, 0, 0, W, H);
     }
 
     update() {
@@ -78,7 +78,7 @@ class Ball {
     update() {
         this.yVel += this.GRAVITY;
         // on magnectic zone
-        if (this.x >= this.offset.x + 418 && this.x <= this.offset.x + 478) {
+        if (this.x >= this.offset.x + (418 * off.w) && this.x <= this.offset.x + (478 * off.w)) {
             this.yVel -= this.GRAVITY * 4;
         }
         this.y += this.yVel;
@@ -120,26 +120,26 @@ class Game {
         this.y = y;
         this.w = x + w;
         this.h = y + h;
-        this.ball = new Ball(85, 390, 20, x, y);
+        this.ball = new Ball(85 * off.w, 390 * off.h, 20 * (off.w / off.h), x, y);
         this.pressStartTime = 0;
         this.isPressed = false;
         this.calculatedForce = 0;
         this.walls = [
             // ground
-            new Wall(x, y + h - 15, w, 30),
+            new Wall(x, y + h - (16 * off.h), w, 30 * off.h),
             // top
-            new Wall(x, y, w, 30),
+            new Wall(x, y, w, 30 * off.h),
             // walls
-            new Wall(x - 40, y, 90, h),
-            new Wall(x + w - 60, y, 90, h),
+            new Wall(x - (40 * off.w), y, (90 * off.w), h),
+            new Wall(x + w - (60 * off.w), y, (90 * off.w), h),
             // obstacles
-            new Wall(x + 170, y + 340, 200, 80),
-            new Wall(x + 250, y + 250, 130, 100),
-            new Wall(x + 330, y + 180, 50, 240),
-            new Wall(x + 330, y + 365, 500, 35),
-            new Wall(x + 550, y + 230, 300, 150),
-            new MagnecticWall(x + 418, y + 280, 60, 20),
-            new Wall(x + 418, y, 10, 210)
+            new Wall(x + (170 * off.w), y + (340 * off.h), 200 * off.w, 80 * off.h),
+            new Wall(x + (250 * off.w), y + (250 * off.h), 130 * off.w, 100 * off.h),
+            new Wall(x + (330 * off.w), y + (180 * off.h), 50 * off.w, 240 * off.h),
+            new Wall(x + (330 * off.w), y + (365 * off.h), 500 * off.w, 35 * off.h),
+            new Wall(x + (550 * off.w), y + (230 * off.h), 300 * off.w, 150 * off.h),
+            new MagnecticWall(x + (418 * off.w), y + (280 * off.h), (60 * off.w), (20 * off.h)),
+            new Wall(x + (418 * off.w), y, (10 * off.w), 210 * off.h)
         ];
     }
 
@@ -192,7 +192,7 @@ class Game {
     }
 
     show() {
-        if (this.ball.x >= 1140 && this.ball.y >= 340) {
+        if (this.ball.x >= 1140 * off.w && this.ball.y >= 340 * off.h) {
             this.room.won = true;
         }
         background(220);
@@ -200,7 +200,7 @@ class Game {
         this.ball.show();
         fill(0, 200, 0, 100);
         noStroke();
-        rect(1120, 300, 80, 80);
+        rect(1120 * off.w, 300 * off.h, 80 * off.w, 80 * off.h);
         for (let wall of this.walls) {
             wall.show();
             this.intersects(this.ball, wall)
@@ -218,10 +218,10 @@ class Game {
         barHeight = constrain(barHeight, 0, 200);
 
         fill(200, 0, 0);
-        rect(this.x + 20, this.h - 30 - barHeight, 20, barHeight);
+        rect(this.x + (20 * off.w), this.h - (30 * off.h) - (barHeight * off.h), (20 * off.w), barHeight * off.h);
         stroke(0);
         noFill();
-        rect(this.x + 20, this.h - 230, 20, 200);
+        rect(this.x + (20 * off.w), this.h - (230 * off.h), 20 * off.w, 200 * off.h);
     }
 
     press() {
