@@ -1,12 +1,12 @@
 class Quarto {
     constructor() {
-        this.light = true;
-        this.energy = true;
-        this.resistors = true;
+        this.light = false;
+        this.energy = false;
+        this.resistors = false;
         this.won = false;
         this.interacting = false;
         this.showPaper = false;
-        this.facing = "right";
+        this.facing = "front";
         this.porta = loadImage("quarto/porta_aberta_LUZ.png");
         this.walls = {
             front: new Cena("quarto/porta_LIGHT.png", this, ["left", "right"], false),
@@ -21,6 +21,12 @@ class Quarto {
             computador: new Computador(this),
             resistor: new Resistor(this)
         }
+
+        this.walls.front.addTrigger(628, 337, 339, 235, () => {
+            if (this.light && this.energy && this.resistors && this.won) {
+                alert("Você venceu!");
+            }
+        });
 
         this.walls.back.addTrigger(816, 393, 305, 193, () => {
             this.interacting = true;
