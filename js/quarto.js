@@ -6,6 +6,7 @@ class Quarto {
         this.won = false;
         this.interacting = false;
         this.showPaper = false;
+        this.showEnd = false;
         this.facing = "front";
         this.porta = loadImage("quarto/porta_aberta_LUZ.png");
         this.walls = {
@@ -22,11 +23,6 @@ class Quarto {
             resistor: new Resistor(this)
         }
 
-        this.walls.front.addTrigger(628 * off.w, 337 * off.h, 339 * off.w, 235 * off.h, () => {
-            if (this.light && this.energy && this.resistors && this.won) {
-                alert("Você venceu!");
-            }
-        });
 
         this.walls.back.addTrigger(816 * off.w, 393 * off.h, 305 * off.w, 193 * off.h, () => {
             this.interacting = true;
@@ -78,6 +74,8 @@ class Quarto {
 
         if (this.showPaper) {
             this.paper();
+        } else if (this.showEnd) {
+            this.endPaper();
         }
 
         if (this.light && this.energy && this.resistors && this.won) {
@@ -113,11 +111,9 @@ class Quarto {
             Problema:
             O gerador não está fornecendo potência estável.
             A energia gerada está fora da faixa necessária para o
-            correto funcionamento dos dispositivos conectados.
-            
-            Causa:
-            Segundo relatos é recorrente a visita de um porco que 
-            botafogo no aparato.
+            correto funcionamento dos dispositivos conectados. A 
+            caixa de energia também foi danificada, a resistência
+            deveria atingir 100Ω
             
             Solução:
             Ajuste do regulador de tensão e estabilização da potência
@@ -125,10 +121,27 @@ class Quarto {
             
             Recomendação:
             Monitorar a potência constantemente. Caso ultrapasse 
-            175000 Miliatts ou caia abaixo de 140000 Miliwatts, o sistema não
-            suportará a pressão.
-            
-            Status:
-            Necessita de reparos.`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
+            175000 Miliatts ou caia abaixo de 140000 Miliwatts,
+            o sistema não suportará a pressão.
+            `, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
+    }
+
+    endPaper() {
+        let paperW = 520 * off.w;
+        let paperH = 600 * off.h;
+        noStroke();
+        fill(255);
+        rect(W / 2 - paperW / 2, H / 2 - paperH / 2, paperW, paperH);
+        textSize(16)
+        textFont("Comic Sans")
+        textAlign(LEFT, LEFT)
+        fill(0)
+        text(`
+            Alien cabeça de lâmpada aqui,
+            taquei essa mensagem no tradutor
+            po menor, tu é muito pika
+            tu n quer virar meu eletricista não?
+            tu tem futuro pprt...
+            bora cmg la pra Galardon???`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
     }
 }

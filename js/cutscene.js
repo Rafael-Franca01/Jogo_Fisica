@@ -1,9 +1,9 @@
 class Cutscene {
-    constructor(video, func) {
+    constructor(video, func, active = false) {
         this.video = createVideo([video]);
         this.video.hide();
         this.video.onended(func);
-        this.active = true;
+        this.active = active;
     }
 
     play() {
