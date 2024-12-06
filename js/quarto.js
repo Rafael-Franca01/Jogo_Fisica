@@ -1,5 +1,5 @@
 class Quarto {
-    constructor() {
+    constructor(lose) {
         this.light = false;
         this.energy = false;
         this.resistors = false;
@@ -17,7 +17,7 @@ class Quarto {
         }
         this.interactions = {
             table: new Cena("zoom/mesa_LIGHT.png", this, "back", true),
-            manivela: new Manivela(this),
+            manivela: new Manivela(this, lose),
             aquario: new Aquario(this),
             computador: new Computador(this),
             resistor: new Resistor(this)
@@ -137,12 +137,12 @@ class Quarto {
         textAlign(LEFT, LEFT)
         fill(0)
         text(`
-            Alien cabeça de lâmpada aqui,
-            taquei essa mensagem no tradutor
-            po menor, tu é muito pika
-            tu n quer virar meu eletricista não?
-            tu tem futuro pprt...
-            bora cmg la pra Galardon???`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
+            Parabéns, humano! Você completou o teste com
+            excelência. Você está convidado para o Galardon,
+            o encontro dos maiores do universo. 
+            
+            Sua jornada começa agora. 
+            Assinado: Zarn`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
     }
 
     getActive() {

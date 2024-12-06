@@ -3,12 +3,19 @@ let off;
 let quarto;
 let menu;
 let intro;
+let lose;
 let ended = false;
 
 function preload() {
     W = windowWidth, H = windowHeight;
     off = { w: windowWidth / 1653, h: windowHeight / 796 }
-    quarto = new Quarto()
+    lose = new Cutscene("cutscenes/lose.mp4", () => {
+        lose.active = false
+        ended = true;
+        window.location.reload()
+    });
+
+    quarto = new Quarto(lose)
     intro = new Cutscene("cutscenes/intro.mp4", () => {
         intro.active = false
     }, true);
@@ -82,6 +89,10 @@ function draw() {
         return
     }
 
+    if (lose.active) {
+        lose.show()
+        return
+    }
     if (ended) {
         background(0)
         return

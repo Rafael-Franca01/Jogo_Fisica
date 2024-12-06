@@ -1,5 +1,5 @@
 class Manivela {
-    constructor(room) {
+    constructor(room, lose) {
         this.img = loadImage("zoom/manivela/manivela_0.png");
         this.img_final = loadImage("zoom/manivela_LUZ.png");
         this.frames = [];
@@ -10,6 +10,7 @@ class Manivela {
         this.tempo = 50;
         this.checks = 5;
         this.room = room;
+        this.lose = lose;
         this.frames.push(this.img);
         for (let i = 1; i <= 7; i++) {
             this.frames.push(loadImage("zoom/manivela/manivela_" + i + ".png"));
@@ -101,7 +102,8 @@ class Manivela {
     }
 
     estourar() {
-        alert("Explodiu!")
+        this.lose.active = true;
+        this.lose.play();
     }
 
 }
