@@ -18,6 +18,7 @@ function preload() {
     quarto = new Quarto(lose)
     intro = new Cutscene("cutscenes/intro.mp4", () => {
         intro.active = false
+        alert("Experimente clicar nos cantos da tela para olhar ao seu redor.");
     }, true);
     ed1 = new Cutscene("cutscenes/final_1.mp4", () => {
         ed1.active = false
