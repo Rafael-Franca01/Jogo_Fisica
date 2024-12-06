@@ -3,10 +3,10 @@ class Computador {
         this.img = loadImage("zoom/computador.png");
         this.game = new Game(400 * off.w, 130 * off.h, 875 * off.w, 415 * off.h, room);
         this.room = room;
-        this.trigger = new Trigger(0, H - 150, W, H, () => {
+        this.triggers = [new Trigger(0, H - 150, W, H, () => {
             room.interacting = false;
             room.facing = "right";
-        });
+        })];
     }
 
     show(energy) {
@@ -17,7 +17,7 @@ class Computador {
     }
 
     update() {
-        this.trigger.checkClick(mouseX, mouseY);
+        this.triggers[0].checkClick(mouseX, mouseY);
         this.game.press();
 
     }
@@ -167,7 +167,6 @@ class Game {
 
     crossCursor(showDots) {
         if (this.room.won || mouseX < this.x || mouseX > this.w || mouseY < this.y || mouseY > this.h) {
-            cursor();
             return;
         }
         noCursor();

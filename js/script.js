@@ -52,6 +52,9 @@ function preload() {
 
 function setup() {
     createCanvas(W, H);
+    setTimeout(() => {
+        alert("Clique no losango para confirmar, clique na circunferência verde para ciclar entre as opções.");
+    }, 500)
 }
 
 function draw() {
@@ -89,6 +92,17 @@ function draw() {
     } else {
         background(0)
     }
+    let c = ARROW
+    for (let t of quarto.getActive().triggers) {
+        if (t.disable) {
+            continue
+        }
+        if (t.checkInside(mouseX, mouseY)) {
+            c = HAND
+            break;
+        }
+    }
+    cursor(c)
     quarto.show()
 }
 

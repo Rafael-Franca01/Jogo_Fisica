@@ -9,10 +9,42 @@
             padding: 0;
             overflow: hidden;
         }
+
+        #p5_loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 1.5s linear infinite;
+
+            border: 0.5rem solid #f3f3f3;
+            border-top: 0.5rem solid #3498db;
+            border-radius: 50%;
+
+            width: 5rem;
+            height: 5rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: transparent;
+        }
+
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div id="p5_loading">Loading...</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/p5@1.11.1/lib/p5.min.js"></script>
 <script src="js/cutscene.js"></script>

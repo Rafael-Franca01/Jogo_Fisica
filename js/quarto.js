@@ -144,4 +144,8 @@ class Quarto {
             tu tem futuro pprt...
             bora cmg la pra Galardon???`, W / 2 - (300 * off.w), H / 2 - (270 * off.h))
     }
+
+    getActive() {
+        return (!this.interacting) ? this.walls[this.facing] : this.interactions[this.facing]
+    }
 }

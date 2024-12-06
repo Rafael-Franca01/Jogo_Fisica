@@ -25,4 +25,8 @@ class Trigger {
             this.otherFunc();
         }
     }
+
+    checkInside(mx, my) {
+        return mx > this.x && mx < this.x + this.w && my > this.y && my < this.y + this.h;
+    }
 }
