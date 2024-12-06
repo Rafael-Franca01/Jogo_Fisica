@@ -45,6 +45,7 @@ function preload() {
             ed1.active = true;
             ed1.play()
             quarto.walls.front.triggers[2].disable = false;
+            quarto.walls.front.triggers[3].disable = true;
         }
     });
     quarto.walls.back.addTrigger(194 * off.w, 472 * off.h, 309 * off.w, 204 * off.h, () => {
